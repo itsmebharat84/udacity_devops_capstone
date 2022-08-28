@@ -74,11 +74,12 @@ jobs:
       - run:
           name: backend build 
           command: | 
+            cd  backend
             npm install
             npm run build 
       - save_cache:
-          paths: [node_modules]
-          key: backend_build
+          paths: [backend/node_modules]
+          key: backend-build
 
 workflows:
   default:
