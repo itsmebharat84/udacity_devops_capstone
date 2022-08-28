@@ -92,7 +92,7 @@ jobs:
           name: lint test front-end 
           command: |
             cd frontend
-            npm install lint
+            npm install linter
             npm run lint 
       - run:
           name: unit test front-end 
@@ -111,7 +111,7 @@ jobs:
           name: lint test back-end 
           command: |
             cd backend
-            npm install lint
+            npm install linter
             npm run lint 
       - run:
           name: unit test back-end 
