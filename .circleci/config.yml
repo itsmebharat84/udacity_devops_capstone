@@ -24,7 +24,7 @@ commands:
           name: Revert migrations 
           when: on_fail
           command: | 
-          echo " revert migration code"
+              echo " revert migration code"
 
   setup-eks:
     description: Update eks kubeconfig 
