@@ -46,7 +46,7 @@ pipeline {
         stage('Deploy - Kubernetes containers') {
             steps {
                 println('deploy to blue container & service')
-                withAWS(region:'eu-west-2', credentials:'aws-credentials') {
+                withAWS(region:'us-east-1', credentials:'aws-credentials') {
                     sh 'aws eks update-kubeconfig --name capstonecluster --region eu-west-2'
                     sh 'kubectl apply -f ./k8s/blue-replication-controller.yaml'
                     sh 'kubectl apply -f ./k8s/green-replication-controller.yaml'
@@ -62,7 +62,7 @@ pipeline {
         stage('Deploy - Green Service') {
             steps {
                 println('deploy container to blue service')
-                withAWS(region:'eu-west-2', credentials:'aws-credentials') {
+                withAWS(region:'us-east-1', credentials:'aws-credentials') {
                     sh 'kubectl apply -f ./k8s/green-service.yaml'
                 }
             }
