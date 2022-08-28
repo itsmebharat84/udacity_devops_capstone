@@ -83,23 +83,36 @@ jobs:
   
   test-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image:  python:3.7.3-stretch
     steps:
       - checkout 
       - restore_cache:
           keys: [frontend-build]
+      - run: 
+          name: install dependencies 
+          command: |
+            cd  frontend
+            python3 -m venv venv
+            . venv/bin/activate
+            make install
+            # Install hadolint
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+            chmod +x /bin/hadolint
       - run:
-          name: lint test front-end 
+          name: run lint
           command: |
             cd frontend
-            npm install linter
-            npm run lint 
+            . venv/bin/activate
+            make lint 
       - run:
           name: unit test front-end 
           command: |
             cd frontend
             npm run test 
-  
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build
+
   test-backend:
     docker:
       - image: circleci/node:13.8.0
