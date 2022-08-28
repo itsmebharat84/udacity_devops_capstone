@@ -90,13 +90,13 @@ jobs:
           keys: [frontend-build]
       - run:
           name: lint test front-end 
-          command |
+          command: |
             cd frontend
             npm install 
             npm run lint 
       - run:
           name: unit test front-end 
-          command |
+          command: |
             cd frontend
             npm install 
             npm run test 
@@ -110,13 +110,13 @@ jobs:
           keys: [backend-build]
       - run:
           name: lint test back-end 
-          command |
+          command: |
             cd backend
             npm install 
             npm run lint 
       - run:
           name: unit test back-end 
-          command |
+          command: |
             cd backend
             npm install 
             npm run test
