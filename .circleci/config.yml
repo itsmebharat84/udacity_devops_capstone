@@ -1,0 +1,78 @@
+version: 2.1
+
+commands:
+  destroy-environment:
+    description: Destory cloudformation stacks 
+    parameters:
+      workflow_id:
+        type: string
+    steps:
+      - run:
+          name: Destroy environments
+          when: on_fail 
+          command: | 
+            # code to delete environment on fail
+            echo "Destroying envirnment: <<parameters.workflow_id >>"
+  
+  revert-migrations:
+    description: Revert the last migration if the successfully run in the current migration 
+    parameters: 
+      workflow_id:
+        type: string 
+    steps:
+      - run:
+          name: Revert migrations 
+          when: on_fail
+          command: | 
+          echo " revert migration code"
+
+  setup-eks:
+    description: Update eks kubeconfig 
+    steps:
+    - kubernetes/install-kubectl 
+    - run:
+        name: update kubeconfig
+        command: |
+          aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name ${CLUSTER_NAME}
+  
+  setup-aws-cli:
+    description: Downlaod and install aws cli v2
+    steps:
+      - run: |
+          sudo apt-get update && sudo apt-get install -yy less 
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+          aws --version
+  
+  export-backned-url:
+    description: exports backends url as API_URL 
+
+
+jobs:
+  build-frontend: 
+    docker:
+      - image: circleci/node:13.8.0
+      steps:
+      - checkout 
+      - restore_cache:
+          keys: [front-end]
+      - run:
+          name: Build front-end
+          command: | 
+            cd  frontend 
+            npm install
+            npm run build 
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build
+
+  build-backend:
+
+workflows:
+  default:
+    jobs:
+      - build-frontend
+
+
+
