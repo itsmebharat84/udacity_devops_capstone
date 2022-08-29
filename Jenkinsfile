@@ -1,15 +1,15 @@
 pipeline {
     agent any
     environment {
-        registry = 'anyulled/capstone'
+        registry = 'itsmebharatb/capstone'
         registryCredential = 'dockerhub'
     }
     stages {
-        stage('Build App') {
+        stage('Lint with pylint and hadolint') {
             steps {
-                println('compile application')
+                println('Lint with pylint and hadolint')
                 sh '''
-                 mvn clean package -DskipTests=true
+                 hadolint Dockerfile
                 '''
             }
         }
