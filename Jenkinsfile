@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registry = 'itsmebharatb/capstone'
+        registry = 'itsmebharatb'
         registryCredential = 'dockerhub'
         greenDockerImage = '' 
         blueDockerImage = ''
@@ -22,7 +22,7 @@ pipeline {
         stage('Set K8S Context'){
             steps {
                 withAWS(credentials:'aws-credentials'){
-                    sh "kubectl config set-context arn:aws:eks:us-east-2:319947095944:cluster/production"
+                    sh "kubectl config set-context arn:aws:eks:us-east-1:191007734411:cluster/my-cluster"
                 }
             }
         }
