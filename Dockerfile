@@ -1,5 +1,11 @@
-FROM openjdk:17.0.1-jdk-slim
+FROM python:3.8-buster 
 
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /app
+
+COPY . .
+
+RUN pip install -r requirements.txt 
+
+ARG FLASK_APP=app.py
+
+ENTRYPOINT [ "flask", "run", "--host=0.0.0.0" ]
