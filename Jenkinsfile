@@ -19,19 +19,10 @@ pipeline {
             }
         }
 
-        stage('Set K8S Context'){
-            steps {
-                withAWS(credentials:'AWS'){
-                    sh "kubectl config set-context arn:aws:eks:us-east-1:191007734411:cluster/my-cluster"
-                }
-            }
-        }
-
         stage('Build Green Docker Image') {
             steps {
                 script {
                     greenDockerImage = docker.build("itsmebharatb/pre-production-flask-app")
-                    sh "run_docker.sh"
                 }
             }
         }
@@ -42,6 +33,20 @@ pipeline {
                     docker.withRegistry('', registryCredential){
                         greenDockerImage.push()
                     }
+                }
+            }
+        }
+
+        stage('Clean Up Green Image'){
+            steps { 
+                sh "docker rmi itsmebharatb/pre-production-flask-app:latest" 
+            }
+        }
+
+        stage('Set K8S Context'){
+            steps {
+                withAWS(credentials:'aws'){
+                    sh "kubectl config set-context arn:aws:eks:us-east-1:191007734411:cluster/my-cluster"
                 }
             }
         }
