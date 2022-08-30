@@ -26,5 +26,23 @@ pipeline {
                 }
             }
         }
+
+        stage('Build Green Docker Image') {
+            steps {
+                script{
+                    greenDockerImage = docker.build "itsmebharatb/pre-production-flask-app"
+                }
+            }
+        }
+
+        stage('Upload Green Image to Docker-Hub'){
+            steps{
+                script{
+                    docker.withRegistry('', registryCredential){
+                        greenDockerImage.push()
+                    }
+                }
+            }
+        }
     }
 }
