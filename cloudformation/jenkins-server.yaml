@@ -126,7 +126,9 @@ Resources:
           chmod +x ./kubectl
           mv ./kubectl /usr/local/bin/kubectl
           usermod -aG docker jenkins
+          chmod 666 /var/run/docker.sock
           systemctl restart jenkins
+          apt-get install -y python3-pip
   JenkinsScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
