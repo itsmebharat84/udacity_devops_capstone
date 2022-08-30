@@ -29,8 +29,8 @@ pipeline {
 
         stage('Build Green Docker Image') {
             steps {
-                script{
-                    greenDockerImage = docker.build "itsmebharatb/pre-production-flask-app"
+                script {
+                    greenDockerImage = docker.build("itsmebharatb/pre-production-flask-app")
                     sh "run_docker.sh"
                 }
             }
