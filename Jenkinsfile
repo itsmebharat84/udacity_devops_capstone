@@ -43,6 +43,14 @@ pipeline {
             }
         }
 
+        stage('create kube config file'){
+            steps {
+                withAWS(credentials:'aws', region: 'us-east-1'){
+                    sh "aws eks --region us-east-1 update-kubeconfig --name jenkinstest"
+                }
+            }
+        }
+
         stage('Set K8S Context'){
             steps {
                 withAWS(credentials:'aws'){
@@ -53,7 +61,7 @@ pipeline {
 
         stage('Green Deployment'){
             steps {
-                withAWS(credentials:'aws'){
+                withAWS(credentials:'aws', region: 'us-east-1-'){
                     sh "kubectl apply -f k8s/Green/green-deployment.yaml --context arn:aws:eks:us-east-1:191007734411:cluster/capstonecluster"
                 }
             }
