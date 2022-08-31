@@ -62,7 +62,7 @@ pipeline {
         stage('Green Deployment'){
             steps {
                 withAWS(credentials:'aws', region: 'us-east-1-'){
-                    sh "kubectl apply -f k8s/Green/green-deployment.yaml --context arn:aws:eks:us-east-1:191007734411:cluster/capstonecluster"
+                    sh "kubectl apply -f k8s/Green/green-deployment.yaml && kubectl apply -f k8s/Green/test-service.yaml"
                 }
             }
         }
