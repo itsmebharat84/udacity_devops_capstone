@@ -66,5 +66,51 @@ pipeline {
                 }
             }
         }
+
+        stage('Test Green Deployment'){
+            steps{
+                input "Ready to promote Green Deployment to production?"
+            }
+        }
+
+        stage('Switch Traffic To Green Deployment'){
+            steps{
+                withAWS(credentials:'aws'){
+                    sh "kubectl apply -f k8s/Green/green-service.yaml"
+                }
+            }
+        }
+
+        stage('Build Blue Docker Image') {
+            steps {
+                script{
+                    blueDockerImage = docker.build "itsmebharatb/flask-app"
+                }
+            }
+        }
+        
+        stage('Upload Blue Image to Docker-Hub'){
+            steps{
+                script{
+                    docker.withRegistry('', registryCredential){
+                        blueDockerImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Clean Up Blue Image'){
+            steps { 
+                sh "docker rmi itsmebharatb/flask-app:latest" 
+            }
+        }
+
+        stage('Blue Deployment'){
+            steps {
+                withAWS(credentials:'aws'){
+                    sh "kubectl apply -f k8s/Blue/blue-deployment.yaml"
+                }
+            }
+        }
     }
 }

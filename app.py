@@ -8,5 +8,5 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     """main route"""
-    return render_template('blue.html')
+    return render_template('green.html')
     
