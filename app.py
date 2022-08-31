@@ -9,4 +9,3 @@ app = Flask(__name__)
 def index():
     """main route"""
     return render_template('green.html')
-    
