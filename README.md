@@ -1,5 +1,6 @@
 # Capstone DevOps Project 
 
+## Overview 
 In this project you will apply the skills and knowledge which were developed throughout the Cloud DevOps Nanodegree program. These include:
 
 Working in AWS
@@ -17,7 +18,7 @@ Once you have completed your Continuous Integration you will set up Continuous D
 Pushing the built Docker container(s) to the Docker repository (you can use AWS ECR, create your own custom Registry within your cluster, or another 3rd party Docker repository) ; and
 Deploying these Docker container(s) to a small Kubernetes cluster. For your Kubernetes cluster you can either use AWS Kubernetes as a Service, or build your own Kubernetes cluster. To deploy your Kubernetes cluster, use either Ansible or Cloudformation. Preferably, run these from within Jenkins or Circle CI as an independent pipeline.
 
-Rubric References 
-CloudFormation 
+## References / Snapshots  
+
 [Rubric References ](cloudformation/Readme.md)
 [CloudFormation ](rubric.md)
