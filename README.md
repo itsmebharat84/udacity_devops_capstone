@@ -22,5 +22,6 @@ Deploying these Docker container(s) to a small Kubernetes cluster. For your Kube
 
 ## References / Snapshots / Completion  
 
-[Rubric References ](cloudformation/Readme.md)
-[CloudFormation ](rubric.md)
+![Rubric References ](cloudformation/Readme.md)
+
+![CloudFormation ](rubric.md)
