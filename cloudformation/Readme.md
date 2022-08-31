@@ -84,6 +84,9 @@ eksctl create cluster \
     --zones us-east-1c 
 ```
  ![Capstone EKS Cluster](screenshots/eks_cluster.png)
+ ![Capstone EKS Cluster Cloudformation Stack](screenshots/eks-cluster-cf.png)
+ ![Capstone EKS Worker Node Cloudformation Stack](screenshots/eks-workernodes-cf.png)
+
 
 - Configure `kubectl`
 ```shell script
