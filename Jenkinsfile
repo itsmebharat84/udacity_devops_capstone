@@ -22,7 +22,7 @@ pipeline {
         stage('Build Green Docker Image') {
             steps {
                 script {
-                    greenDockerImage = docker.build("itsmebharatb/pre-production-flask-app")
+                    greenDockerImage = docker.build("itsmebharatb/pre-prod-flask-app")
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
 
         stage('Clean Up Green Image'){
             steps { 
-                sh "docker rmi itsmebharatb/pre-production-flask-app:latest" 
+                sh "docker rmi itsmebharatb/pre-prod-flask-app:latest" 
             }
         }
 
