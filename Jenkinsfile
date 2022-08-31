@@ -46,7 +46,7 @@ pipeline {
         stage('Set K8S Context'){
             steps {
                 withAWS(credentials:'aws'){
-                    sh "kubectl config set-context arn:aws:eks:us-east-1:191007734411:cluster/my-cluster"
+                    sh "kubectl config set-context arn:aws:eks:us-east-1:191007734411:cluster/capstonecluster"
                 }
             }
         }
