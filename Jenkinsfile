@@ -108,7 +108,7 @@ pipeline {
         stage('Blue Deployment'){
             steps {
                 withAWS(credentials:'aws'){
-                    sh "kubectl apply -f k8s/Blue/blue-deployment.yaml"
+                    sh "kubectl apply -f k8s/Blue"
                 }
             }
         }
